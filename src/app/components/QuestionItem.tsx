@@ -7,15 +7,17 @@ type Props = {
   onAnswer: (answer: number) => void;
 }
 
-
-
 export const QuestionItem = ({question, count, onAnswer}: Props) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>();
 
 
   const checkQuestion = (key: number) => {
     setSelectedAnswer(key);
-    onAnswer(key)
+    setTimeout(() => {
+      onAnswer(key)
+      setSelectedAnswer(null)
+    }, 2000)
+    
   }
 
   return (
@@ -27,7 +29,6 @@ export const QuestionItem = ({question, count, onAnswer}: Props) => {
           className={`border px-3 py-2 rounded-md text-lg mb-4  bg-blue-100 cursor-pointer 
           ${selectedAnswer !== null && selectedAnswer === question.answer && selectedAnswer === key && 'bg-green-100'}
           ${selectedAnswer !== null && selectedAnswer !== question.answer && selectedAnswer === key && 'bg-red-100'}
-
           `}
 
             key={key} onClick={() => checkQuestion(key)}>
